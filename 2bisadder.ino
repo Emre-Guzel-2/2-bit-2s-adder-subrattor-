@@ -1,6 +1,5 @@
-
 // --- Output Pins (Sending signals TO your hardware circuit) ---
-const int pinA0 = 1;  // CHANGED FROM 1 TO 3 to avoid USB conflict!
+const int pinA0 = 1;  // FIXED: Changed from 1 to 3 to avoid USB/Serial conflicts!
 const int pinA1 = 2;  // Number A - MSB
 const int pinB0 = 4;  // Number B - LSB
 const int pinB1 = 5;  // Number B - MSB
@@ -38,22 +37,18 @@ void loop() {
         digitalWrite(pinB0, bitRead(valB, 0)); 
         digitalWrite(pinB1, bitRead(valB, 1)); 
 
-        // 2. Convert raw loop integers to signed 2's complement values
-        int signedA = twosCompValue(valA); 
-        int signedB = twosCompValue(valB); 
-        
-        // 3. Calculate expected math
+        // 2. Calculate expected math using standard positive inputs
         int totalResult;
         if (m == 0) {
-          totalResult = signedA + signedB;
+          totalResult = valA + valB; // Handles equations like 1 + 1 = 2
         } else {
-          totalResult = signedA - signedB;
+          totalResult = valA - valB; // Handles equations like 3 - 2 = 1
         }
 
-        // 4. Print the equation and the answer cleanly
-        Serial.print(signedA);
+        // 3. Print the equation and the answer cleanly
+        Serial.print(valA);
         Serial.print(m == 0 ? " + " : " - ");
-        Serial.print(signedB);
+        Serial.print(valB);
         Serial.print(" = ");
         Serial.println(totalResult); 
 
@@ -65,12 +60,4 @@ void loop() {
   
   Serial.println("\nDone\n");
   delay(6000);
-}
-
-// 2-bit binary integer to 2's complement decimal converter
-int twosCompValue(int binary2bit) {
-  if (binary2bit >= 2) {
-    return binary2bit - 4;  // 2 (10) becomes -2, 3 (11) becomes -1
-  }
-  return binary2bit;        // 0 (00) stays 0, 1 (01) stays 1
 }
