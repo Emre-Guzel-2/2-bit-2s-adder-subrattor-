@@ -1,5 +1,5 @@
 // --- Output Pins (Sending signals TO your hardware circuit) ---
-const int pinA0 = 1;  // FIXED: Changed from 1 to 3 to avoid USB/Serial conflicts!
+const int pinA0 = 3;  // FIXED: Changed from 1 to 3 to avoid USB/Serial conflicts!
 const int pinA1 = 2;  // Number A - MSB
 const int pinB0 = 4;  // Number B - LSB
 const int pinB1 = 5;  // Number B - MSB
@@ -22,11 +22,11 @@ void loop() {
   // Loop through Control Bit: 0 = Addition, 1 = Subtraction
   for (int m = 0; m <= 1; m++) {
     
-    // Loop through all values for A: 0, 1, 2, 3
-    for (int valA = 0; valA <= 3; valA++) {
+    // UPDATED: Loop through values for A from 2 to 4
+    for (int valA = 0; valA <= 2; valA++) {
       
-      // Loop through all values for B: 0, 1, 2, 3
-      for (int valB = 0; valB <= 3; valB++) {
+      // UPDATED: Loop through values for B from 2 to 4
+      for (int valB = 0; valB <= 2; valB++) {
         
         // 1. Send the physical signals to your circuit
         digitalWrite(pinM,  m);
@@ -40,9 +40,9 @@ void loop() {
         // 2. Calculate expected math using standard positive inputs
         int totalResult;
         if (m == 0) {
-          totalResult = valA + valB; // Handles equations like 1 + 1 = 2
+          totalResult = valA + valB; // Handles equations like 2 + 2 = 4
         } else {
-          totalResult = valA - valB; // Handles equations like 3 - 2 = 1
+          totalResult = valA - valB; // Handles equations like 4 - 2 = 2
         }
 
         // 3. Print the equation and the answer cleanly
