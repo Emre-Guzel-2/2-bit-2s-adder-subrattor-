@@ -23,10 +23,10 @@ void loop() {
   for (int m = 0; m <= 1; m++) {
     
     // UPDATED: Loop through values for A from 2 to 4
-    for (int valA = 0; valA <= 2; valA++) {
+    for (int valA = 0; valA <= 1; valA++) {
       
       // UPDATED: Loop through values for B from 2 to 4
-      for (int valB = 0; valB <= 2; valB++) {
+      for (int valB = 0; valB <= 1; valB++) {
         
         // 1. Send the physical signals to your circuit
         digitalWrite(pinM,  m);
